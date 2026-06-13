@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: file-share
+    env: docker
+    dockerfilePath: ./Dockerfile
