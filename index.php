@@ -62,7 +62,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$file || $file['error'] === UPLOAD_ERR_NO_FILE) {
         $error = 'Pick a file first.';
     } elseif ($file['error'] !== UPLOAD_ERR_OK) {
-        $error = 'Upload failed, try again.';
+        $error = match($file['error']) {
+            UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE => 'File is too large. Maximum is 25 MB.',
+            UPLOAD_ERR_PARTIAL    => 'Upload was cut off, please try again.',
+            UPLOAD_ERR_NO_TMP_DIR => 'Server misconfiguration: no temp directory.',
+            UPLOAD_ERR_CANT_WRITE => 'Server could not write the file to disk.',
+            default => 'Upload failed (code ' . $file['error'] . '), try again.',
+        };
     } elseif ($file['size'] > MAX_BYTES) {
         $error = 'Files are capped at 25 MB.';
     } elseif (!isset(EXPIRY_OPTIONS[$expiry])) {
