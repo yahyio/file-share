@@ -2,8 +2,6 @@
 
 Upload files and share them with a one-time link. Files auto-expire after 1 hour, 1 day, or 7 days.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
-
 ## Features
 
 - Files stored under random 128-bit tokens
